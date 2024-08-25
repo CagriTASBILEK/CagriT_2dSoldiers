@@ -1,15 +1,18 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// GridManager class manages the grid system.
+/// </summary>
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }
     
     public int width = 32;
     public int height = 32;
+    
     public GameObject cellPrefab;
     public Transform gridParent;
-
     
     public GridCellController[,] _gridCells;
     private IGridGenerator _gridGenerator;
@@ -28,6 +31,7 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
+       
         _gridGenerator = new GridGenerator();
         InitializeGrid();
     }
@@ -39,7 +43,7 @@ public class GridManager : MonoBehaviour
     }
 
     public Vector3 GetWorldPosition(int x, int y)
-    {
+    { 
         return new Vector3(x, y, 0);
     }
 }

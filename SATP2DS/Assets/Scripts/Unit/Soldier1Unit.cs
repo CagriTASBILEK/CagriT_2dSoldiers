@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class Soldier1Unit : BaseUnit
 {
-    public int AttackDamage { get; private set; }
-
-    public Soldier1Unit(int attackDamage)
-    {
-        AttackDamage = attackDamage;
-        Health = 10; 
-    }
+    public int AttackDamage;
+    
 
     public override void UnitAction()
     {
