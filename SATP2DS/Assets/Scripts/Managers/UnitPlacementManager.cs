@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utilities;
 
 /// <summary>
@@ -7,16 +8,19 @@ using Utilities;
 /// </summary>
 public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
 {
-    public UnitData selectedUnitData;
+    [HideInInspector]public UnitData selectedUnitData;
     
     public IUnitPlacementService placementService;
     
     public GridManager gridManager;
     
     private Vector3 mousePosition;
+    EventSystem m_EventSystem;
     private void Start()
     {
-        placementService = new UnitPlacementController(gridManager);
+        placementService = new UnitPlacementControl(gridManager);
+        m_EventSystem = EventSystem.current;
+        selectedUnitData = null;
     }
 
 
@@ -27,20 +31,37 @@ public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
             CheckForSoldier();
         }
         
-        
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && selectedUnitData)
         {
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            Vector3Int gridPosition = new Vector3Int(Mathf.RoundToInt(mousePosition.x), Mathf.RoundToInt(mousePosition.y), 0);
-            
-            if (placementService.CanPlaceUnit(gridPosition.x, gridPosition.y, selectedUnitData.size))
+            if (m_EventSystem.currentSelectedGameObject)
             {
-                placementService.PlaceUnit(gridPosition.x, gridPosition.y,selectedUnitData);
+                if (m_EventSystem.currentSelectedGameObject.layer == 5)
+                    return;
             }
             else
             {
-                Debug.Log("Cannot place unit here.");
+                mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                Vector3Int gridPosition = new Vector3Int(Mathf.RoundToInt(mousePosition.x),
+                    Mathf.RoundToInt(mousePosition.y), 0);
+
+                if (gridPosition.x >= 0 && gridPosition.y >= 0 &&
+                    gridPosition.x + selectedUnitData.size.x <= gridManager.width &&
+                    gridPosition.y + selectedUnitData.size.y <= gridManager.height)
+                {
+                    if (placementService.CanPlaceUnit(gridPosition.x, gridPosition.y, selectedUnitData.size))
+                    {
+                        placementService.PlaceUnit(gridPosition.x, gridPosition.y, selectedUnitData);
+                    }
+                    else
+                    {
+                        Debug.Log("Cannot place unit here.");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Out of grid bounds.");
+                }
             }
         }
     }

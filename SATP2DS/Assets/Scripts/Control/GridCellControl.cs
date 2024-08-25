@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /// <summary>
-/// GridCellController class manages the state of a grid cell.
+/// GridCellControl class manages the state of a grid cell.
 /// </summary>
-public class GridCellController
+public class GridCellControl
 {
     /// <summary>
     /// The GameObject representing the cell.
@@ -16,10 +16,10 @@ public class GridCellController
     public bool IsEmpty { get; private set; }
 
     /// <summary>
-    /// Constructor for GridCellController.
+    /// Constructor for GridCellControl.
     /// </summary>
     /// <param name="cellObject">The GameObject representing the cell.</param>
-    public GridCellController(GameObject cellObject)
+    public GridCellControl(GameObject cellObject)
     {
         CellObject = cellObject;
         IsEmpty = true;

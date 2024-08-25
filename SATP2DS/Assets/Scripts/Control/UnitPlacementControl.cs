@@ -1,18 +1,18 @@
 using UnityEngine;
 
 /// <summary>
-/// UnitPlacementController class implements the IUnitPlacementService interface
+/// UnitPlacementControl class implements the IUnitPlacementService interface
 /// and is responsible for handling unit placement on the grid.
 /// </summary>
-public class UnitPlacementController : IUnitPlacementService
+public class UnitPlacementControl : IUnitPlacementService
 {
     private readonly GridManager _gridManager;
 
     /// <summary>
-    /// Constructor for UnitPlacementController.
+    /// Constructor for UnitPlacementControl.
     /// </summary>
     /// <param name="gridManager">The GridManager instance.</param>
-    public UnitPlacementController(GridManager gridManager)
+    public UnitPlacementControl(GridManager gridManager)
     {
         _gridManager = gridManager;
     }

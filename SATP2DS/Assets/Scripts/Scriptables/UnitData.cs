@@ -8,7 +8,9 @@ using UnityEngine;
 
 public class UnitData : ScriptableObject
 {
-    [SerializeField] public GameObject unitPrefab;
+    public String unitDisplayName;
+    public Sprite unitIcon;
+    public GameObject unitPrefab;
     public Vector2Int size; 
 }
 

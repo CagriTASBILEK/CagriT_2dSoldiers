@@ -42,7 +42,7 @@ public class BarracksUnit : BaseUnit
     /// </summary>
     public void ProduceSoldier()
     {
-        soldierDatas = Resources.LoadAll("SoldierDatas/");
+        soldierDatas = Resources.LoadAll<UnitData>("SoldierDatas/");
         
         SoldierSpawner(() =>
         {

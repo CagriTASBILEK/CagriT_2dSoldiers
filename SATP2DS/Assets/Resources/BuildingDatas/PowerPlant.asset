@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aba5708f35cccb48b844211ded4e5ef, type: 3}
   m_Name: PowerPlant
   m_EditorClassIdentifier: 
+  unitDisplayName: PowerPlant
+  unitIcon: {fileID: 21300000, guid: 785ed3681978cbe47bba5e63f71f37bc, type: 3}
   unitPrefab: {fileID: 351633544889400646, guid: 6af09cb64cb63264d86e48066638f24d, type: 3}
   size: {x: 2, y: 3}

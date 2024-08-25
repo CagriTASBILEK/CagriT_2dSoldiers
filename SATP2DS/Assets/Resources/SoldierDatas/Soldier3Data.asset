@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aba5708f35cccb48b844211ded4e5ef, type: 3}
   m_Name: Soldier3Data
   m_EditorClassIdentifier: 
+  unitDisplayName: Soldier3
+  unitIcon: {fileID: 21300000, guid: ec764dad0a837c341b5b2be7a0ca520e, type: 3}
   unitPrefab: {fileID: 5508296910944643956, guid: 3a5c279660058394983ca648c9089f54, type: 3}
   size: {x: 1, y: 1}

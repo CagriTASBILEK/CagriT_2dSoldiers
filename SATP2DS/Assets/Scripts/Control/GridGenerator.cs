@@ -12,10 +12,10 @@ public class GridGenerator : IGridGenerator
     /// <param name="height">The height of the grid.</param>
     /// <param name="cellPrefab">The prefab for the grid cell.</param>
     /// <param name="parent">The parent transform for the grid cells.</param>
-    /// <returns>A 2D array of GridCellController representing the grid.</returns>
-    public GridCellController[,] GenerateGrid(int width, int height, GameObject cellPrefab, Transform parent)
+    /// <returns>A 2D array of GridCellControl representing the grid.</returns>
+    public GridCellControl[,] GenerateGrid(int width, int height, GameObject cellPrefab, Transform parent)
     {
-        GridCellController[,] gridCells = new GridCellController[width, height];
+        GridCellControl[,] gridCells = new GridCellControl[width, height];
         
         for (int x = 0; x < width; x++)
         {
@@ -25,7 +25,7 @@ public class GridGenerator : IGridGenerator
                 cellObject.name = $"Cell {x},{y}";
                 cellObject.transform.position = new Vector2(x, y);
                 cellObject.transform.parent = parent;
-                gridCells[x, y] = new GridCellController(cellObject);
+                gridCells[x, y] = new GridCellControl(cellObject);
             }
         }
         return gridCells;

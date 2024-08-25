@@ -14,7 +14,7 @@ public class GridManager : MonoBehaviour
     public GameObject cellPrefab;
     public Transform gridParent;
     
-    public GridCellController[,] _gridCells;
+    public GridCellControl[,] _gridCells;
     private IGridGenerator _gridGenerator;
 
     private void Awake()

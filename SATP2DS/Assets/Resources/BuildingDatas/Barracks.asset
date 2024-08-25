@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aba5708f35cccb48b844211ded4e5ef, type: 3}
   m_Name: Barracks
   m_EditorClassIdentifier: 
+  unitDisplayName: Barracks
+  unitIcon: {fileID: 21300000, guid: bab56896d4a48394a96cdff9f9e89765, type: 3}
   unitPrefab: {fileID: 351633544889400646, guid: 8720d4d606f4d46408833951b9b2bfc8, type: 3}
   size: {x: 4, y: 4}
