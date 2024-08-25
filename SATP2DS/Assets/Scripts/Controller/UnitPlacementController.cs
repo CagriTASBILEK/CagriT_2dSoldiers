@@ -36,5 +36,18 @@ public class UnitPlacementController : IUnitPlacementService
         Vector3 unitPosition = _gridManager.GetWorldPosition(x, y);
         GameObject unitObject = Object.Instantiate(unitData.unitPrefab, new Vector2(x, y), Quaternion.identity);
         unitObject.transform.position = unitPosition;
+        unitObject.GetComponent<BaseUnit>().OnUnitDestroyed += () => ReleaseUnit(x, y,unitData.size);
+        unitObject.GetComponent<BaseUnit>().UnitAction();
+    }
+    
+    private void ReleaseUnit(int x, int y, Vector2Int size)
+    {
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.y; j++)
+            {
+                _gridManager._gridCells[x + i, y + j].Release();
+            }
+        }
     }
 }
