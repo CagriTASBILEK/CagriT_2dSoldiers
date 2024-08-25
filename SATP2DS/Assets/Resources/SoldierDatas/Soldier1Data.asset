@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a4d8e19a4795e49ab2055803fe2ff5, type: 3}
-  m_Name: SoldierDatav2
+  m_Script: {fileID: 11500000, guid: 3aba5708f35cccb48b844211ded4e5ef, type: 3}
+  m_Name: Soldier1Data
   m_EditorClassIdentifier: 
-  dataLayer:
-    serializedVersion: 2
-    m_Bits: 2147483648
-  cellSize:
-    width: 1
-    height: 1
   unitPrefab: {fileID: 5508296910944643956, guid: d473c37290deaf2439862e1aaafc1e82, type: 3}
+  size: {x: 1, y: 1}

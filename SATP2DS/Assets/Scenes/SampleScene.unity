@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629915690d01ba94bb505aad42400b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedUnitData: {fileID: 11400000, guid: f964c4e20fe26ce4da7e74fb397bedf4, type: 2}
+  selectedUnitData: {fileID: 11400000, guid: 7afa8e8520780664a8f60ca7dcba47b1, type: 2}
   gridManager: {fileID: 1600017889}
 --- !u!1 &2107185991
 GameObject:
@@ -351,7 +351,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2107185992}
-  - component: {fileID: 2107185993}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -374,21 +373,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1298261118}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2107185993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107185991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea7c41d2b19be4f9536cc46386e36c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pool: []
-  _poolDictionary:
-    m_keys: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

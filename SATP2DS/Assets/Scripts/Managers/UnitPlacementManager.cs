@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using Utilities;
 
-public class UnitPlacementManager : MonoBehaviour
+public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
 {
     public UnitData selectedUnitData;
-    private IUnitPlacementService placementService;
+    public IUnitPlacementService placementService;
     public GridManager gridManager;
     private Vector3 mousePosition;
     private void Start()
@@ -18,9 +19,9 @@ public class UnitPlacementManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
             Vector3Int gridPosition = new Vector3Int(Mathf.RoundToInt(mousePosition.x), Mathf.RoundToInt(mousePosition.y), 0);
             
-            Debug.Log(gridPosition);
             if (placementService.CanPlaceUnit(gridPosition.x, gridPosition.y, selectedUnitData.size))
             {
                 placementService.PlaceUnit(gridPosition.x, gridPosition.y,selectedUnitData);
