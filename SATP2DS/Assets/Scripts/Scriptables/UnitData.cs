@@ -11,6 +11,7 @@ public class UnitData : ScriptableObject
     public String unitDisplayName;
     public Sprite unitIcon;
     public GameObject unitPrefab;
-    public Vector2Int size; 
+    public Vector2Int size;
+    public bool hasSoldier;
 }
 

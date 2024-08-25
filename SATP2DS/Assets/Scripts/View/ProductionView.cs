@@ -11,6 +11,18 @@ public class ProductionView : MonoBehaviour
     public InfiniteScroll infiniteScroll;
     private List<GameObject> _buildingButtons = new List<GameObject>();
 
+    private ProductionModel productionModel;
+    [HideInInspector] public ProductionController productionController;
+    
+    
+    private void Start()
+    {
+        productionModel = new ProductionModel();
+        productionController = new ProductionController(productionModel,this);
+        
+        DisplayBuildings(productionModel.BuildingList, productionController.OnBuildingSelected);
+    }
+    
     public void DisplayBuildings(List<UnitData> buildingList, System.Action<UnitData> onBuildingSelected)
     {
         foreach (var buildingData in buildingList)
@@ -33,4 +45,5 @@ public class ProductionView : MonoBehaviour
         }
         _buildingButtons.Clear();
     }
+    
 }

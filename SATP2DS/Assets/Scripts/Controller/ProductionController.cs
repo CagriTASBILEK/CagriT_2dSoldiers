@@ -1,21 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class ProductionController : MonoBehaviour
+public class ProductionController
 {
     private ProductionModel _model;
     private ProductionView _view;
-
-    private void Start()
+    
+    public ProductionController(ProductionModel model, ProductionView view)
     {
-        _model = new ProductionModel();
-        _view = FindObjectOfType<ProductionView>();
-        _view.DisplayBuildings(_model.BuildingList, OnBuildingSelected);
+        _model = model;
+        _view = view;
     }
-
-    private void OnBuildingSelected(UnitData selectedBuilding)
+    
+    public void OnBuildingSelected(UnitData selectedBuilding)
     {
         UnitPlacementManager.Instance.selectedUnitData = selectedBuilding;
+        InformationPanelView.Instance.informationController.UpdateView(selectedBuilding.unitDisplayName,selectedBuilding.unitIcon,selectedBuilding.hasSoldier);
     }
 }

@@ -22,7 +22,7 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler
         _scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
         _childCount = _scrollRect.content.childCount;
         _height = 0;
-        _scrollRect.content.position = new Vector3(1, 1);
+        _scrollRect.content.localPosition = new Vector3(0,-60);
 
         yield return new WaitForSeconds(10f);
         int counter = 0;
