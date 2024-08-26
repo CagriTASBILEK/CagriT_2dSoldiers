@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utilities;
 
 public abstract class BaseUnit : MonoBehaviour
 {
@@ -13,10 +14,16 @@ public abstract class BaseUnit : MonoBehaviour
         health -= amount;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Dispose(gameObject);
         }
     }
-    private void OnDestroy()
+
+    private void Dispose(GameObject go)
+    {
+        ObjectPool.Instance.Recycle(go);
+    }
+    
+    private void OnDisable()
     {
         OnUnitDestroyed?.Invoke();
     }

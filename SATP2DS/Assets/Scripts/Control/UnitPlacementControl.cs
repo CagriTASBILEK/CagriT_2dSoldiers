@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utilities;
 
 /// <summary>
 /// UnitPlacementControl class implements the IUnitPlacementService interface
@@ -55,7 +56,7 @@ public class UnitPlacementControl : IUnitPlacementService
             }
         }
         Vector3 unitPosition = _gridManager.GetWorldPosition(x, y);
-        GameObject unitObject = Object.Instantiate(unitData.unitPrefab, new Vector2(x, y), Quaternion.identity);
+        GameObject unitObject = unitData.unitPrefab.Spawn(new Vector2(x, y), Quaternion.identity);
         unitObject.transform.position = unitPosition;
         unitObject.GetComponent<BaseUnit>().OnUnitDestroyed += () => ReleaseUnit(x, y, unitData.size);
         unitObject.GetComponent<BaseUnit>().UnitAction();

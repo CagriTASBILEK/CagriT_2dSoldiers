@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -83,10 +84,11 @@ public class BarracksUnit : BaseUnit
         }
         
         Vector3 unitPosition = UnitPlacementManager.Instance.gridManager.GetWorldPosition(x, y);
-        GameObject unitObject = Instantiate(unitData.unitPrefab, new Vector2(x, y), Quaternion.identity);
+        GameObject unitObject = unitData.unitPrefab.Spawn(new Vector2(x, y), Quaternion.identity);
         unitObject.transform.position = unitPosition;
         unitObject.GetComponent<BaseUnit>().OnUnitDestroyed += () => ReleaseUnit(x, y, unitData.size);
         unitObject.GetComponent<BaseUnit>().UnitAction();
+        
     }
 
     /// <summary>

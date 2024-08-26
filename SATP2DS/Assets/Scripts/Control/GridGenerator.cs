@@ -1,4 +1,6 @@
 using UnityEngine;
+using Utilities;
+
 /// <summary>
 /// GridGenerator class implements the IGridGenerator interface
 /// and is responsible for generating a grid of cells.
@@ -21,7 +23,7 @@ public class GridGenerator : IGridGenerator
         {
             for (int y = 0; y < height; y++)
             {
-                GameObject cellObject = Object.Instantiate(cellPrefab, new Vector2(x, y), Quaternion.identity, parent);
+                GameObject cellObject = cellPrefab.Spawn(new Vector2(x, y), Quaternion.identity, parent);
                 cellObject.name = $"Cell {x},{y}";
                 cellObject.transform.position = new Vector2(x, y);
                 cellObject.transform.parent = parent;
