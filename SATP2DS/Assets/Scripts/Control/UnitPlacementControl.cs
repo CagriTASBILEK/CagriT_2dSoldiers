@@ -59,7 +59,6 @@ public class UnitPlacementControl : IUnitPlacementService
         GameObject unitObject = unitData.unitPrefab.Spawn(new Vector2(x, y), Quaternion.identity);
         unitObject.transform.position = unitPosition;
         unitObject.GetComponent<BaseUnit>().OnUnitDestroyed += () => ReleaseUnit(x, y, unitData.size);
-        unitObject.GetComponent<BaseUnit>().UnitAction();
     }
 
     /// <summary>
