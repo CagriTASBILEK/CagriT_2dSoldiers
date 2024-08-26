@@ -55,6 +55,7 @@ public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
                     }
                     else
                     {
+                        PlacementView.Instance.placementController.ShowInvalidPlacementIndicator(gridPosition,selectedUnitData);
                         Debug.Log("Cannot place unit here.");
                     }
                 }
