@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SeekerControl : MonoBehaviour
 {
-  public Vector3 targetTransform; 
+    private Vector3 targetTransform; 
     private AstarPathfinding _pathfinding;
     private GridManager _gridManager;
     private List<GridCellControl> path;
     private int currentPathIndex = 0; 
-    private bool isMoving = false;
+    public bool isMoving = false;
 
     public float speed = 5f;
 

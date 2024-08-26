@@ -10,7 +10,7 @@ public class Soldier1Unit : BaseUnit
     }
     protected override void HandleUnitCollision(BaseUnit otherUnit)
     {
-        if (otherUnit != null && otherUnit.CanBeAttackedBy(this))
+        if (otherUnit != null && otherUnit.CanBeAttackedBy(this) && !GetComponent<SeekerControl>().isMoving)
         { 
             Attack(otherUnit);
         }
