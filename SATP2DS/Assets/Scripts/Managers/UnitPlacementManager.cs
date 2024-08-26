@@ -8,14 +8,15 @@ using Utilities;
 /// </summary>
 public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
 {
-    [HideInInspector]public UnitData selectedUnitData;
+    [HideInInspector] public UnitData selectedUnitData;
     public IUnitPlacementService placementService;
     public GridManager gridManager;
-    
+
     private Vector3 mousePosition;
     EventSystem m_EventSystem;
-    
+
     public SeekerControl selectedSoldier;
+
     private void Start()
     {
         placementService = new UnitPlacementControl(gridManager);
@@ -26,11 +27,11 @@ public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
 
 
     void Update()
-    { 
+    {
         HandleSelection();
         HandlePlacement();
     }
-    
+
     private void HandlePlacement()
     {
         if (Input.GetMouseButtonDown(0) && selectedUnitData)
@@ -40,7 +41,8 @@ public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
                 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePosition.z = 0;
 
-                Vector3Int gridPosition = new Vector3Int(Mathf.RoundToInt(mousePosition.x), Mathf.RoundToInt(mousePosition.y), 0);
+                Vector3Int gridPosition = new Vector3Int(Mathf.RoundToInt(mousePosition.x),
+                    Mathf.RoundToInt(mousePosition.y), 0);
 
                 if (gridPosition.x >= 0 && gridPosition.y >= 0 &&
                     gridPosition.x + selectedUnitData.size.x <= gridManager.width &&
@@ -65,24 +67,38 @@ public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
             }
         }
     }
-    
+
     private void HandleSelection()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity);
-            
-            if (hit.collider != null)
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hitLC = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity);
+
+            if (hitLC.collider != null)
             {
-                Transform hitTransform = hit.collider.transform;
-                
-                var soldier = hit.collider.GetComponentInParent<Soldier1Unit>() || hit.collider.GetComponentInParent<Soldier2Unit>() || hit.collider.GetComponentInParent<Soldier3Unit>();
+                Transform hitTransform = hitLC.collider.transform;
+
+                var soldier = hitLC.collider.GetComponentInParent<Soldier1Unit>() ||
+                              hitLC.collider.GetComponentInParent<Soldier2Unit>() ||
+                              hitLC.collider.GetComponentInParent<Soldier3Unit>();
                 if (soldier)
                 {
                     SelectSoldier(hitTransform.GetComponentInParent<SeekerControl>());
                 }
-                else if (hitTransform.GetComponentInParent<PowerPlantUnit>())
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hitRC = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity);
+
+            if (hitRC.collider != null)
+            {
+                Transform hitTransform = hitRC.collider.transform;
+
+                if (hitTransform.GetComponentInParent<PowerPlantUnit>())
                 {
                     SelectTargetBuilding(hitTransform.GetComponentInParent<PowerPlantUnit>());
                 }
@@ -93,6 +109,7 @@ public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
             }
         }
     }
+
     private void SelectSoldier(SeekerControl soldier)
     {
         if (soldier != null)
@@ -100,16 +117,17 @@ public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
             selectedSoldier = soldier;
         }
     }
+
     private void SelectTargetBuilding(PowerPlantUnit building)
     {
         if (selectedSoldier != null && building != null)
         {
             Vector3Int targetGridPosition = gridManager.GetGridPosition(building.transform.localPosition);
-            selectedSoldier.SetTarget(targetGridPosition); 
+            selectedSoldier.SetTarget(targetGridPosition);
             Debug.Log($"Target building selected: {building.name}");
         }
     }
-    
+
     private void SelectTargetGrid(Vector3 pos)
     {
         Vector3Int targetGridPosition = gridManager.GetGridPosition(pos);
@@ -117,10 +135,9 @@ public class UnitPlacementManager : SingletonBehaviour<UnitPlacementManager>
         {
             selectedSoldier.SetTarget(targetGridPosition);
         }
-        else 
+        else
         {
-            Debug.Log("Target cell is not empty."); 
-        }        
+            Debug.Log("Target cell is not empty.");
+        }
     }
-    
 }
