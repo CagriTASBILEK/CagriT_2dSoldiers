@@ -1,17 +1,21 @@
 using System.Collections.Generic;
+using Scriptables;
 using UnityEngine;
 
-public class ProductionModel
+namespace Model
 {
-    public List<UnitData> BuildingList { get; private set; }
-
-    public ProductionModel()
+    public class ProductionModel
     {
-        LoadBuildings();
-    }
+        public List<UnitData> BuildingList { get; private set; }
 
-    private void LoadBuildings()
-    {
-        BuildingList = new List<UnitData>(Resources.LoadAll<UnitData>("BuildingDatas/"));
+        public ProductionModel()
+        {
+            LoadBuildings();
+        }
+
+        private void LoadBuildings()
+        {
+            BuildingList = new List<UnitData>(Resources.LoadAll<UnitData>("BuildingDatas/"));
+        }
     }
 }

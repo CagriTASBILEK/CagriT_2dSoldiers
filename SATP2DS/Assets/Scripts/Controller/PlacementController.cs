@@ -1,22 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+using Model;
+using Scriptables;
 using UnityEngine;
+using View;
 
-public class PlacementController
+namespace Controller
 {
-    private PlacementView _view;
-    private PlacementModel _model;
-
-
-    public PlacementController(PlacementModel model,PlacementView view)
+    public class PlacementController
     {
-        _model = model;
-        _view = view;
-    }
+        private PlacementView _view;
+        private PlacementModel _model;
 
-    public void ShowInvalidPlacementIndicator(Vector3 position,UnitData selectedUnitData)
-    {
-        _view.ShowInvalidPlacementIndicator(position,selectedUnitData);
-    }
+
+        public PlacementController(PlacementModel model,PlacementView view)
+        {
+            _model = model;
+            _view = view;
+        }
+
+        public void ShowInvalidPlacementIndicator(Vector3 position,UnitData selectedUnitData)
+        {
+            _view.ShowInvalidPlacementIndicator(position,selectedUnitData);
+        }
     
+    }
 }

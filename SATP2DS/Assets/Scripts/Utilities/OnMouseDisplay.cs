@@ -1,20 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Utilities;
 
-public class OnMouseDisplay : SingletonBehaviour<OnMouseDisplay>
+namespace Utilities
 {
-    public List<Color> Colors; 
-    void OnMouseEnter()
+    public class OnMouseDisplay : SingletonBehaviour<OnMouseDisplay>
     {
-        GetComponent<SpriteRenderer>().color = Colors[1];
+        public List<Color> Colors; 
+        void OnMouseEnter()
+        {
+            GetComponent<SpriteRenderer>().color = Colors[1];
+        }
+
+        void OnMouseExit()
+        {
+            GetComponent<SpriteRenderer>().color = Colors[0];
+        }
+
+
     }
-
-    void OnMouseExit()
-    {
-        GetComponent<SpriteRenderer>().color = Colors[0];
-    }
-
-
 }

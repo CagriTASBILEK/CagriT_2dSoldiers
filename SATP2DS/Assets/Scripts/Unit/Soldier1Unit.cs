@@ -1,41 +1,49 @@
 using System.Collections;
-using System.Collections.Generic;
+using Control;
 using UnityEngine;
 
-public class Soldier1Unit : BaseUnit
+namespace Unit
 {
-    public int AttackDamage;
-    public override void UnitAction()
+    public class Soldier1Unit : BaseUnit
     {
-    }
-    protected override void HandleUnitCollision(BaseUnit otherUnit)
-    {
-        if (otherUnit != null && otherUnit.CanBeAttackedBy(this) && !GetComponent<SeekerControl>().isMoving)
-        { 
-            Attack(otherUnit);
-        }
-    }
-    
-    public void Attack(BaseUnit target)
-    {
-        StartCoroutine(AttackRoutine(target));
-    }
-    
-    private IEnumerator AttackRoutine(BaseUnit target)
-    {
-        while (target != null && target.health > 0)
+        public int AttackDamage;
+        public override void UnitAction()
         {
-            if (target.health <= 0 || !target.gameObject.activeInHierarchy)
-            {
-                yield break;
-            }
-            target.TakeDamage(AttackDamage);
-            yield return new WaitForSeconds(1);
         }
-    }
+        protected override void HandleUnitCollision(BaseUnit otherUnit)
+        {
+            if (otherUnit != null && otherUnit.CanBeAttackedBy(this))
+            { 
+                Attack(otherUnit);
+            }
+        }
     
-    public override bool CanBeAttackedBy(BaseUnit attacker)
-    {
-        return attacker is PowerPlantUnit;
+        public void Attack(BaseUnit target)
+        {
+            StartCoroutine(AttackRoutine(target));
+        }
+    
+        private IEnumerator AttackRoutine(BaseUnit target)
+        {
+            while (target != null && target.health > 0)
+            {
+                if (GetComponent<SeekerControl>().isMoving)
+                {
+                    yield return new WaitUntil(() => !GetComponent<SeekerControl>().isMoving);
+                }
+                
+                if (target.health <= 0 || !target.gameObject.activeInHierarchy)
+                {
+                    yield break;
+                }
+                target.TakeDamage(AttackDamage);
+                yield return new WaitForSeconds(1);
+            }
+        }
+    
+        public override bool CanBeAttackedBy(BaseUnit attacker)
+        {
+            return attacker is PowerPlantUnit;
+        }
     }
 }

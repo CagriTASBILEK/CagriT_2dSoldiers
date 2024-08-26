@@ -1,16 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Managers
 {
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        InitializeGame();
-    }
-    private void InitializeGame()
-    {
-        GridManager.Instance.Initialize(); 
+        private void Awake()
+        {
+            InitializeGame();
+        }
+        private void InitializeGame()
+        {
+            GridManager.Instance.Initialize(); 
+        }
     }
 }

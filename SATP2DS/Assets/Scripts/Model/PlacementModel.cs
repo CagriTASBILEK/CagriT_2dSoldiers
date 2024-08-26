@@ -1,5 +1,8 @@
 
-[System.Serializable]
-public class PlacementModel
+namespace Model
 {
+    [System.Serializable]
+    public class PlacementModel
+    {
+    }
 }

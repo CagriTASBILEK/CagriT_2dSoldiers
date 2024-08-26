@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Utilities
 {
+    /// <summary>
+    /// ObjectPool class manages the pooling of game objects to optimize performance.
+    /// </summary>
     public class ObjectPool : SingletonBehaviour<ObjectPool>
     {
         [SerializeField] private PoolSettings[] _pool;
@@ -32,7 +35,6 @@ namespace Utilities
 
         public void DeleteDictionary()
         {
-
             foreach (var obj in _poolDictionary)
             {
                 if (obj.Key.activeInHierarchy)
@@ -46,30 +48,16 @@ namespace Utilities
                     });
                 }
             }
-            
-            
-            // _poolDictionary.ForEach(obj =>
-            // {
-            //     if (obj.Key.activeInHierarchy)
-            //     {
-            //         obj.Value.ForEach(val =>
-            //         {
-            //             if (val.activeInHierarchy)
-            //             {
-            //                 Recycle(val);
-            //             }
-            //         });
-            //     }
-            //
-            // });
         }
 
+        // Coroutine to dispose of a game object after a specified time.
         public IEnumerator Dispose(GameObject go, float time)
         {
             yield return new WaitForSeconds(time);
             go.Recycle();
         }
 
+        // Method to spawn a game object from the pool.
         public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent)
         {
             if (!_poolDictionary.ContainsKey(prefab))
@@ -96,6 +84,7 @@ namespace Utilities
             }
         }
 
+        // Method to recycle a game object back into the pool.
         public void Recycle(GameObject go)
         {
             if (go != null)
@@ -110,11 +99,13 @@ namespace Utilities
 
         }
 
+        // Generic method to spawn a component from the pool.
         public T Spawn<T>(T prefab, Vector3 position, Quaternion rotation, Transform parent) where T : Component
         {
             return Spawn(prefab.gameObject, position, rotation, parent).GetComponent<T>();
         }
 
+        // Generic method to recycle a component back into the pool.
         public void Recycle<T>(T component) where T : Component
         {
             Recycle(component.gameObject);
@@ -128,6 +119,10 @@ namespace Utilities
         }
     }
 
+    
+    /// <summary>
+    /// Extension methods for the ObjectPool class.
+    /// </summary>
     public static class ObjectPoolExtensions
     {
         public static GameObject Spawn(this GameObject prefab)

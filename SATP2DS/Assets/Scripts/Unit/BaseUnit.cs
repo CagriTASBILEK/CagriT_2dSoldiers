@@ -1,42 +1,45 @@
 using UnityEngine;
 using Utilities;
 
-public abstract class BaseUnit : MonoBehaviour
+namespace Unit
 {
-    public int health;
-    public delegate void UnitDestroyed();
-    public event UnitDestroyed OnUnitDestroyed;
+    public abstract class BaseUnit : MonoBehaviour
+    {
+        public int health;
+        public delegate void UnitDestroyed();
+        public event UnitDestroyed OnUnitDestroyed;
     
 
-    protected virtual void OnTriggerEnter2D(Collider2D other)
-    {
-        var otherUnit = other.GetComponentInParent<BaseUnit>();
-        if (otherUnit != null && otherUnit != this)
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            HandleUnitCollision(otherUnit);
+            var otherUnit = other.GetComponent<BaseUnit>();
+            if (otherUnit != null && otherUnit != this)
+            {
+                HandleUnitCollision(otherUnit);
+            }
         }
-    }
     
-    protected virtual void HandleUnitCollision(BaseUnit otherUnit){}
-    public virtual void TakeDamage(int amount)
-    {
-        health -= amount;
-        if (health <= 0)
+        protected virtual void HandleUnitCollision(BaseUnit otherUnit){}
+        public virtual void TakeDamage(int amount)
         {
-            Dispose(gameObject);
+            health -= amount;
+            if (health <= 0)
+            {
+                Dispose(gameObject);
+            }
         }
-    }
 
-    private void Dispose(GameObject go)
-    {
-        ObjectPool.Instance.Recycle(go);
-    }
+        private void Dispose(GameObject go)
+        {
+            ObjectPool.Instance.Recycle(go);
+        }
     
-    private void OnDisable()
-    {
-        OnUnitDestroyed?.Invoke();
-    }
-    public abstract void UnitAction();
+        private void OnDisable()
+        {
+            OnUnitDestroyed?.Invoke();
+        }
+        public abstract void UnitAction();
     
-    public abstract bool CanBeAttackedBy(BaseUnit attacker);
+        public abstract bool CanBeAttackedBy(BaseUnit attacker);
+    }
 }

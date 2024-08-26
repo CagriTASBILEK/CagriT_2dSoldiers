@@ -1,6 +1,10 @@
+using Control;
 using UnityEngine;
 
-public interface IGridGenerator
+namespace Interfaces
 {
-    GridCellControl[,] GenerateGrid(int width, int height, GameObject cellPrefab, Transform parent);
+    public interface IGridGenerator
+    {
+        GridCellControl[,] GenerateGrid(int width, int height, GameObject cellPrefab, Transform parent);
+    }
 }

@@ -1,18 +1,25 @@
+using Managers;
+using Model;
+using Scriptables;
+using View;
 
-public class ProductionController
+namespace Controller
 {
-    private ProductionModel _model;
-    private ProductionView _view;
-    
-    public ProductionController(ProductionModel model, ProductionView view)
+    public class ProductionController
     {
-        _model = model;
-        _view = view;
-    }
+        private ProductionModel _model;
+        private ProductionView _view;
     
-    public void OnBuildingSelected(UnitData selectedBuilding)
-    {
-        UnitPlacementManager.Instance.selectedUnitData = selectedBuilding;
-        InformationPanelView.Instance.informationController.UpdateView(selectedBuilding.unitDisplayName,selectedBuilding.unitIcon,selectedBuilding.hasSoldier);
+        public ProductionController(ProductionModel model, ProductionView view)
+        {
+            _model = model;
+            _view = view;
+        }
+    
+        public void OnBuildingSelected(UnitData selectedBuilding)
+        {
+            UnitPlacementManager.Instance.selectedUnitData = selectedBuilding;
+            InformationPanelView.Instance.informationController.UpdateView(selectedBuilding.unitDisplayName,selectedBuilding.unitIcon,selectedBuilding.hasSoldier);
+        }
     }
 }

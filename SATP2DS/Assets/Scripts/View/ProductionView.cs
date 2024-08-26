@@ -1,49 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
+using Controller;
+using Model;
+using Scriptables;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utilities;
 
-public class ProductionView : MonoBehaviour
+namespace View
 {
-    public RectTransform contentPanel;  // Scroll view içindeki content paneli
-    public GameObject buildingButtonPrefab;  // Her bina için buton prefabı
-    public InfiniteScroll infiniteScroll;
-    private List<GameObject> _buildingButtons = new List<GameObject>();
-
-    private ProductionModel productionModel;
-    [HideInInspector] public ProductionController productionController;
-    
-    
-    private void Start()
+    public class ProductionView : MonoBehaviour
     {
-        productionModel = new ProductionModel();
-        productionController = new ProductionController(productionModel,this);
+        public RectTransform contentPanel; 
+        public GameObject buildingButtonPrefab;
+        public InfiniteScroll infiniteScroll;
+        private List<GameObject> _buildingButtons = new List<GameObject>();
+
+        private ProductionModel productionModel;
+        [HideInInspector] public ProductionController productionController;
+    
+    
+        private void Start()
+        {
+            productionModel = new ProductionModel();
+            productionController = new ProductionController(productionModel,this);
         
-        DisplayBuildings(productionModel.BuildingList, productionController.OnBuildingSelected);
-    }
+            DisplayBuildings(productionModel.BuildingList, productionController.OnBuildingSelected);
+        }
     
-    public void DisplayBuildings(List<UnitData> buildingList, System.Action<UnitData> onBuildingSelected)
-    {
-        foreach (var buildingData in buildingList)
+        public void DisplayBuildings(List<UnitData> buildingList, System.Action<UnitData> onBuildingSelected)
         {
-            GameObject newButton = Instantiate(buildingButtonPrefab, contentPanel);
-            newButton.GetComponentInChildren<TextMeshProUGUI>().text = buildingData.unitDisplayName;
-            newButton.GetComponent<Image>().sprite = buildingData.unitIcon;
-            newButton.GetComponent<Button>().onClick.AddListener(() => onBuildingSelected(buildingData));
-            _buildingButtons.Add(newButton);
+            foreach (var buildingData in buildingList)
+            {
+                GameObject newButton = Instantiate(buildingButtonPrefab, contentPanel);
+                newButton.GetComponentInChildren<TextMeshProUGUI>().text = buildingData.unitDisplayName;
+                newButton.GetComponent<Image>().sprite = buildingData.unitIcon;
+                newButton.GetComponent<Button>().onClick.AddListener(() => onBuildingSelected(buildingData));
+                _buildingButtons.Add(newButton);
+            }
+
+            StartCoroutine(infiniteScroll.Initialize());
         }
 
-        StartCoroutine(infiniteScroll.Initialize());
-    }
-
-    public void ClearBuildingButtons()
-    {
-        foreach (var button in _buildingButtons)
+        public void ClearBuildingButtons()
         {
-            Destroy(button);
+            foreach (var button in _buildingButtons)
+            {
+                Destroy(button);
+            }
+            _buildingButtons.Clear();
         }
-        _buildingButtons.Clear();
-    }
     
+    }
 }
