@@ -15,6 +15,12 @@ public class GridCellControl
     /// </summary>
     public bool IsEmpty { get; private set; }
 
+    // A* Pathfinding properties
+    public float GCost { get; set; }
+    public float HCost { get; set; }
+    public GridCellControl Parent { get; set; }
+    public float FCost => GCost + HCost;
+
     /// <summary>
     /// Constructor for GridCellControl.
     /// </summary>
@@ -40,4 +46,5 @@ public class GridCellControl
     {
         IsEmpty = true;
     }
+    
 }

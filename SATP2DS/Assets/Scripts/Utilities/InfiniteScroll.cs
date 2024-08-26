@@ -23,7 +23,15 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler
         _childCount = _scrollRect.content.childCount;
         _height = 0;
         _scrollRect.content.localPosition = new Vector3(0,-60);
+        
+        for (int i = 0; i < _childCount; i++)
+        {
+            var child = _scrollRect.content.GetChild(i);
+            float yPos = -i * (_childHeight + _itemSpacing*1.5f);
+            child.localPosition = new Vector3(100, (yPos-100), 0);
+        }
 
+        
         yield return new WaitForSeconds(10f);
         int counter = 0;
         while (counter < 300)

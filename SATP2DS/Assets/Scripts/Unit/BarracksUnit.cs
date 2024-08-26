@@ -148,4 +148,9 @@ public class BarracksUnit : BaseUnit
     public override void UnitAction()
     {
     }
+
+    public override bool CanBeAttackedBy(BaseUnit attacker)
+    {
+        return false;
+    }
 }

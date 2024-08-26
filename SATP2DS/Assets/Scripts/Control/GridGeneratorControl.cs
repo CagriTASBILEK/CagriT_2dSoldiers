@@ -5,7 +5,7 @@ using Utilities;
 /// GridGenerator class implements the IGridGenerator interface
 /// and is responsible for generating a grid of cells.
 /// </summary>
-public class GridGenerator : IGridGenerator
+public class GridGeneratorControl : IGridGenerator
 {
     /// <summary>
     /// Generates a grid of cells.

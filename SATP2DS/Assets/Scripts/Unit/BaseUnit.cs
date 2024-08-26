@@ -4,11 +4,20 @@ using Utilities;
 public abstract class BaseUnit : MonoBehaviour
 {
     public int health;
-
     public delegate void UnitDestroyed();
     public event UnitDestroyed OnUnitDestroyed;
     
 
+    protected virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        var otherUnit = other.GetComponentInParent<BaseUnit>();
+        if (otherUnit != null && otherUnit != this)
+        {
+            HandleUnitCollision(otherUnit);
+        }
+    }
+    
+    protected virtual void HandleUnitCollision(BaseUnit otherUnit){}
     public virtual void TakeDamage(int amount)
     {
         health -= amount;
@@ -28,4 +37,6 @@ public abstract class BaseUnit : MonoBehaviour
         OnUnitDestroyed?.Invoke();
     }
     public abstract void UnitAction();
+    
+    public abstract bool CanBeAttackedBy(BaseUnit attacker);
 }
