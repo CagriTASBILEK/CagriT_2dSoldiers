@@ -9,14 +9,14 @@ using Utilities;
 
 namespace View
 {
-    public class ProductionView : MonoBehaviour
+    public class ProductionView : SingletonBehaviour<ProductionView>
     {
         public RectTransform contentPanel; 
         public GameObject buildingButtonPrefab;
         public InfiniteScroll infiniteScroll;
         private List<GameObject> _buildingButtons = new List<GameObject>();
 
-        private ProductionModel productionModel;
+        [HideInInspector] public ProductionModel productionModel;
         [HideInInspector] public ProductionController productionController;
     
     
@@ -25,7 +25,7 @@ namespace View
             productionModel = new ProductionModel();
             productionController = new ProductionController(productionModel,this);
         
-            DisplayBuildings(productionModel.BuildingList, productionController.OnBuildingSelected);
+            DisplayBuildings(productionModel.buildingFactory, productionController.OnBuildingSelected);
         }
     
         public void DisplayBuildings(List<UnitData> buildingList, System.Action<UnitData> onBuildingSelected)

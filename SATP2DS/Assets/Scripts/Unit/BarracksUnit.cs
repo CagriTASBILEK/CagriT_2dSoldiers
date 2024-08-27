@@ -29,13 +29,14 @@ namespace Unit
         /// Event triggered when a soldier unit is spawned.
         /// </summary>
         public event SoldierUnitSpawn OnUnitSpawned;
-
-        private Object[] soldierDatas;
+        
+        private List<UnitData> soldierDatas;
         private bool isSpawning;
         private float timer;
     
         private void Start()
         {
+            soldierDatas = FactoryManager.SoldierFactory.GetAllUnitData();
             isSpawning = true;
             OnUnitDestroyed += DestroyBarracks;
             OnUnitSpawned += ProduceSoldier;
@@ -47,8 +48,6 @@ namespace Unit
         /// </summary>
         public void ProduceSoldier()
         {
-            soldierDatas = Resources.LoadAll<UnitData>("SoldierDatas/");
-        
             SoldierSpawner(() =>
             {
                 timer += Time.deltaTime;
@@ -56,8 +55,8 @@ namespace Unit
                 {
                     timer = 0f;
                     var randomSpawn = Random.Range(0, SpawnPoints.Count);
-                    var randomSoldier = Random.Range(0, soldierDatas.Length);
-                    var soldier = soldierDatas[randomSoldier] as UnitData;
+                    var randomSoldier = Random.Range(0, soldierDatas.Count);
+                    var soldier = soldierDatas[randomSoldier];
                 
                     if (soldier != null && UnitPlacementManager.Instance.placementService.CanPlaceUnit((int)SpawnPoints[randomSpawn].position.x, (int)SpawnPoints[randomSpawn].position.y, soldier.size))
                     {
@@ -86,9 +85,9 @@ namespace Unit
                     UnitPlacementManager.Instance.gridManager._gridCells[x + i, y + j].Occupy();
                 }
             }
-        
+            
             Vector3 unitPosition = UnitPlacementManager.Instance.gridManager.GetWorldPosition(x, y);
-            GameObject unitObject = unitData.unitPrefab.Spawn(new Vector2(x, y), Quaternion.identity);
+            GameObject unitObject = FactoryManager.SoldierFactory.CreateUnit(unitData, new Vector2(x, y), Quaternion.identity, null);
             unitObject.transform.position = unitPosition;
             unitObject.GetComponent<BaseUnit>().OnUnitDestroyed += () => ReleaseUnit(x, y, unitData.size);
             unitObject.GetComponent<BaseUnit>().UnitAction();

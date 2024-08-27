@@ -62,7 +62,7 @@ namespace Control
                 }
             }
             Vector3 unitPosition = _gridManager.GetWorldPosition(x, y);
-            GameObject unitObject = unitData.unitPrefab.Spawn(new Vector2(x, y), Quaternion.identity);
+            GameObject unitObject = FactoryManager.BuildingFactory.CreateUnit(unitData,new Vector2(x, y), Quaternion.identity,null);
             unitObject.transform.position = unitPosition;
             unitObject.GetComponent<BaseUnit>().OnUnitDestroyed += () => ReleaseUnit(x, y, unitData.size);
         }

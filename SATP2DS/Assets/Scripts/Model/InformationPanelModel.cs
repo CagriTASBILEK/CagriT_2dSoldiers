@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Managers;
 using Scriptables;
 using UnityEngine;
 
@@ -14,10 +15,11 @@ namespace Model
         {
             LoadSoldiers();
         }
+
         private void LoadSoldiers()
         {
-            Soldiers = new List<UnitData>(Resources.LoadAll<UnitData>("SoldierDatas/"));
+            Soldiers = FactoryManager.SoldierFactory.GetAllUnitData();
         }
-    
+
     }
 }

@@ -11,6 +11,7 @@ namespace Managers
         private void InitializeGame()
         {
             GridManager.Instance.Initialize(); 
+            FactoryManager.Initialize();
         }
     }
 }

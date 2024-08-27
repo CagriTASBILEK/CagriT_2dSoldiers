@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Managers;
 using Scriptables;
 using UnityEngine;
 
@@ -6,8 +7,7 @@ namespace Model
 {
     public class ProductionModel
     {
-        public List<UnitData> BuildingList { get; private set; }
-
+        public List<UnitData> buildingFactory;
         public ProductionModel()
         {
             LoadBuildings();
@@ -15,7 +15,7 @@ namespace Model
 
         private void LoadBuildings()
         {
-            BuildingList = new List<UnitData>(Resources.LoadAll<UnitData>("BuildingDatas/"));
+            buildingFactory = FactoryManager.BuildingFactory.GetAllUnitData();
         }
     }
 }
